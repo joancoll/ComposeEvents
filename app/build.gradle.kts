@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "cat.dam.andy.composeevents"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "cat.dam.andy.composeevents"
         minSdk = 28
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 

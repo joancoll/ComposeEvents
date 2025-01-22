@@ -1,4 +1,5 @@
 package cat.dam.andy.composeevents
+
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -15,6 +16,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
@@ -59,6 +61,7 @@ class MainActivity : ComponentActivity() {
                 val softwareKeyboardController = LocalSoftwareKeyboardController.current
                 Column(
                     modifier = Modifier
+                        .systemBarsPadding()
                         .fillMaxSize()
                         .background(Color.Yellow)
                         // detectar clics al contenidor
@@ -112,13 +115,16 @@ class MainActivity : ComponentActivity() {
                                         info = "Detectada tecla: Enter premut"
                                         true
                                     }
+
                                     Key.Backspace -> {
                                         info = "Detectada tecla: Backspace premut"
                                         true
                                     }
+
                                     else -> {
                                         // mostra caràcter associat a la tecla premuda
-                                        info = "Detectada tecla: ${keyEvent.nativeKeyEvent.unicodeChar.toChar()}"
+                                        info =
+                                            "Detectada tecla: ${keyEvent.nativeKeyEvent.unicodeChar.toChar()}"
                                         false
                                     }
                                 }
@@ -129,6 +135,7 @@ class MainActivity : ComponentActivity() {
                                     info = "TextField1 amb focus"
                                 } else {
                                     info = "TextField1 sense focus"
+                                    softwareKeyboardController?.hide()
                                 }
                             }
                     )
@@ -140,7 +147,11 @@ class MainActivity : ComponentActivity() {
                     )
                     Spacer(modifier = Modifier.height(10.dp))
                     // detectar botó premut
-                    Button(onClick = { info = "Detectat botó premut" }
+                    Button(onClick = {
+                        info = "Detectat botó premut"
+                        softwareKeyboardController?.hide()
+
+                    }
                     ) {
                         Text(text = "Prem")
                     }
@@ -151,9 +162,9 @@ class MainActivity : ComponentActivity() {
                             .size(100.dp)
                             .background(Color.Blue)
                             .combinedClickable(
-                                onClick = { info = "Detectat clic damunt blau" },
-                                onDoubleClick = { info = "Detectat doble clic damunt blau" },
-                                onLongClick = { info = "Detectat clic llarg damunt blau" },
+                                onClick = { info = "Detectat clic damunt blau";softwareKeyboardController?.hide() },
+                                onDoubleClick = { info = "Detectat doble clic damunt blau";softwareKeyboardController?.hide() },
+                                onLongClick = { info = "Detectat clic llarg damunt blau";softwareKeyboardController?.hide() },
                             )
                     ) {
                         Text(
